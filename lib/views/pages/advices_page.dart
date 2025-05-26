@@ -86,34 +86,8 @@ class AdvicesPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20,),
-            remainingBudget >= 0 ? 
-            budget != 0 ?
-            RichText( //if budget is enough
-              text: TextSpan(
-                style: TextStyle(fontSize: 16, color: DefaultTextStyle.of(context).style.color),
-                children: [ 
-                  TextSpan(text: 'Рекомендуемая плата по долгу ${debts[0].name}: '),
-                  debts[0].monthlyPayment + remainingBudget > debts[0].sum ? 
-                  TextSpan( //if the remaining budget exceedes the sum
-                    text: '${debts[0].sum}',
-                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
-                           ? Colors.teal[300]
-                           : Colors.teal,),
-                  ) : 
-                  TextSpan( //if the remaining budget does not exceed the sum
-                    text: '${debts[0].monthlyPayment + remainingBudget}',
-                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
-                           ? Colors.teal[300]
-                           : Colors.teal,),
-                  ),
-                ],
-              ),
-            ): 
-            Text( //if budget is not enough
-              "Прямо сейчас вам не хватает бюджета для выплаты ежемесячных плат всех долгов",
-              style: TextStyle(color: Colors.red[300]),
-            ) 
-            :
+
+            budget == 0 ? 
             RichText( // if the budget is NOT SET
               text: TextSpan(
                 style: TextStyle(fontSize: 16, color: DefaultTextStyle.of(context).style.color),
@@ -148,6 +122,32 @@ class AdvicesPage extends StatelessWidget {
                   )
                 ],
               ),
+            ) : 
+            remainingBudget >= 0 ? 
+            RichText( //if budget is enough
+              text: TextSpan(
+                style: TextStyle(fontSize: 16, color: DefaultTextStyle.of(context).style.color),
+                children: [ 
+                  TextSpan(text: 'Рекомендуемая плата по долгу ${debts[0].name}: '),
+                  debts[0].monthlyPayment + remainingBudget > debts[0].sum ? 
+                  TextSpan( //if the remaining budget exceedes the sum
+                    text: '${debts[0].sum}',
+                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                           ? Colors.teal[300]
+                           : Colors.teal,),
+                  ) : 
+                  TextSpan( //if the remaining budget does not exceed the sum
+                    text: '${debts[0].monthlyPayment + remainingBudget}',
+                    style: TextStyle(color: Theme.of(context).brightness == Brightness.dark
+                           ? Colors.teal[300]
+                           : Colors.teal,),
+                  ),
+                ],
+              ),
+            ) :
+            Text( //if budget is not enough
+              "Прямо сейчас вам не хватает бюджета для выплаты ежемесячных плат всех долгов",
+              style: TextStyle(color: Colors.red[300]),
             ),
             SizedBox(height: 10,),
             if (debts.length > 1 && remainingBudget > 0 && budget != 0) Column(
